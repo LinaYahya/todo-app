@@ -4,7 +4,6 @@ const taskSchema = new Schema({
   userID: {
     type: String,
     required: true,
-    unique: true,
   },
   title: {
     type: String,
@@ -14,11 +13,11 @@ const taskSchema = new Schema({
     type: String,
   },
   category: {
-    type: Date,
+    type: String,
     required: true,
   },
   time: {
-    type: String,
+    type: Date,
     required: true,
   },
 });
