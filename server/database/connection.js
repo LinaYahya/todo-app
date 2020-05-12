@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-require('env2')('config.env');
-const dburl = process.env.DB_URL;
 
+require('env2')('config.env');
+
+const dburl = process.env.DB_URL;
 
 mongoose
   .connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true })
