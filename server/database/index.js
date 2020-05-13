@@ -11,15 +11,16 @@ const buildDB = () =>
       .then(async () => {
         await Task.createCollection();
         await Task.deleteMany();
-        await taskData();
+        const data = await Task.create(taskData);
+        return data;
       })
       .then(resolve)
       .catch(reject);
   });
 
 buildDB()
-  .then(() => {
-    console.log('Database was built successfully !');
+  .then((l) => {
+    console.log('Database was built successfully !', l);
     mongoose.disconnect();
   })
   .catch((err) => {
