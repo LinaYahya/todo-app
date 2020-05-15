@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const { join } = require('path');
 
 const app = express();
+const router = require('./router');
 
 app.disabled('x-powered-by');
 app.set('port', process.env.PORT || 5000);
@@ -16,6 +17,7 @@ const middlewares = [
 ];
 
 app.use(middlewares);
+app.use('/api/v1', router);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(join(__dirname, '..', 'client', 'build')));

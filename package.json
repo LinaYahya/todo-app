@@ -10,7 +10,6 @@
     "kill": "fuser -k 5000/tcp",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "build:database": "node server/database/index.js"
-
   },
   "repository": {
     "type": "git",
@@ -24,6 +23,7 @@
   },
   "homepage": "https://github.com/LinaYahya/todo-app#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "env2": "^2.2.2",
