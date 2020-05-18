@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 
 
-function TaskFrom() {
+function TaskFrom({setShow}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [time, setTime] = useState(new Date());
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('personal');
 
   const addTask = () => {
     fetch('/api/v1/task', {
@@ -32,7 +32,7 @@ function TaskFrom() {
         <br />
 
         <label>
-          description
+          Description
         <input value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
         <br />
@@ -47,14 +47,20 @@ function TaskFrom() {
         <br />
         <label>
           Time
-        <DateTimePicker
+        <DateTimePicker 
+        className="timepicker"
             value={time}
             onChange={(date) => setTime(date)}
           />
         </label>
-        <button type="submit" onClick={(e) => {
+        <button type="button" className="taskbtn" onClick={()=> setShow(false)}>Cancel</button>
+        <button type="submit" className="taskbtn" onClick={(e) => {
           e.preventDefault();
           addTask();
+          setShow(false);
+          setDescription('');
+          setTitle('');
+          setTime(Date.now());
         }}>
           Add Task</button>
       </form>
