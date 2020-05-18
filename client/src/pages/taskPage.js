@@ -9,6 +9,7 @@ function TaskPage() {
   const [description, setDescription] = useState('');
   const [time, setTime] = useState(new Date());
   const [category, setCategory] = useState('personal');
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     fetch('/api/v1/task')
@@ -18,6 +19,7 @@ function TaskPage() {
 
   const editTask = (t, desc, time, cat) => {
     setShow(true);
+    setEdit(true);
     setTitle(t);
     setDescription(desc);
     setTime(time);
@@ -46,6 +48,7 @@ function TaskPage() {
 
       ))}
       {showForm && <TaskForm
+      edit={edit} setEdit={setEdit}
         setShow={setShow} title={title} setTitle={setTitle}
         setDescription={setDescription} description={description}
         category={category} time={new Date(time)} setTime={setTime} setCategory={setCategory} />}

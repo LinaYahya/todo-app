@@ -2,7 +2,7 @@ import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 
 
-function TaskFrom({ setShow, title, setTitle, description, setDescription, time, setTime, category, setCategory }) {
+function TaskFrom({ edit, setEdit, setShow, title, setTitle, description, setDescription, time, setTime, category, setCategory }) {
 
   const addTask = () => {
     fetch('/api/v1/task', {
@@ -14,6 +14,16 @@ function TaskFrom({ setShow, title, setTitle, description, setDescription, time,
     })
       .then((res) => res.json())
       .then(console.log)
+  }
+  const EditTask = () => {
+
+  }
+  const clearItems = () => {
+    setEdit(false);
+    setShow(false);
+    setDescription('');
+    setTitle('');
+    setTime(Date.now());
   }
 
   return (
@@ -48,21 +58,19 @@ function TaskFrom({ setShow, title, setTitle, description, setDescription, time,
           />
         </label>
         <button type="button" className="taskbtn" onClick={() => {
-          setShow(false);
-          setDescription('');
-          setTitle('');
-          setTime(Date.now());
+          clearItems();
         }}>
           Cancel</button>
         <button type="submit" className="taskbtn" onClick={(e) => {
           e.preventDefault();
-          addTask();
-          setShow(false);
-          setDescription('');
-          setTitle('');
-          setTime(Date.now());
+          if (edit) {
+            EditTask();
+          } else {
+            addTask();
+          }
+          clearItems();
         }}>
-          Add Task</button>
+          {edit ? 'Edit' : 'Add Task'}</button>
       </form>
     </>
   )
