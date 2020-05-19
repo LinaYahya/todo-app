@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 
 
-function TaskFrom({setShow}) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [time, setTime] = useState(new Date());
-  const [category, setCategory] = useState('personal');
+function TaskFrom({ edit, setEdit, setShow, id, setID, title, setTitle, description, setDescription, time, setTime, category, setCategory }) {
 
   const addTask = () => {
     fetch('/api/v1/task', {
@@ -18,12 +14,29 @@ function TaskFrom({setShow}) {
     })
       .then((res) => res.json())
       .then(console.log)
-
+  }
+  const EditTask = () => {
+    fetch(`/api/v1/task/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, description, time, category })
+    })
+      .then((res) => res.json())
+      .then(console.log)
+  }
+  const clearItems = () => {
+    setEdit(false);
+    setShow(false);
+    setDescription('');
+    setTitle('');
+    setID('');
+    setTime(Date.now());
   }
 
   return (
     <>
-
       < form className="taskform">
         <label  >
           Title
@@ -47,22 +60,26 @@ function TaskFrom({setShow}) {
         <br />
         <label>
           Time
-        <DateTimePicker 
-        className="timepicker"
+        <DateTimePicker
+            className="timepicker"
             value={time}
             onChange={(date) => setTime(date)}
           />
         </label>
-        <button type="button" className="taskbtn" onClick={()=> setShow(false)}>Cancel</button>
+        <button type="button" className="taskbtn" onClick={() => {
+          clearItems();
+        }}>
+          Cancel</button>
         <button type="submit" className="taskbtn" onClick={(e) => {
           e.preventDefault();
-          addTask();
-          setShow(false);
-          setDescription('');
-          setTitle('');
-          setTime(Date.now());
+          if (edit) {
+            EditTask();
+          } else {
+            addTask();
+          }
+          clearItems();
         }}>
-          Add Task</button>
+          {edit ? 'Edit' : 'Add Task'}</button>
       </form>
     </>
   )
