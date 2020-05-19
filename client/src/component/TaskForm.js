@@ -2,7 +2,7 @@ import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 
 
-function TaskFrom({ edit, setEdit, setShow, title, setTitle, description, setDescription, time, setTime, category, setCategory }) {
+function TaskFrom({ edit, setEdit, setShow, id, setID, title, setTitle, description, setDescription, time, setTime, category, setCategory }) {
 
   const addTask = () => {
     fetch('/api/v1/task', {
@@ -16,13 +16,22 @@ function TaskFrom({ edit, setEdit, setShow, title, setTitle, description, setDes
       .then(console.log)
   }
   const EditTask = () => {
-
+    fetch(`/api/v1/task/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, description, time, category })
+    })
+      .then((res) => res.json())
+      .then(console.log)
   }
   const clearItems = () => {
     setEdit(false);
     setShow(false);
     setDescription('');
     setTitle('');
+    setID('');
     setTime(Date.now());
   }
 
