@@ -5,6 +5,6 @@ router.post('/task', addTask);
 router.get('/task', getTasks);
 router.delete('/task/:id', deleteTask);
 
-// router.post('/editTask', editTask);
+router.patch('/task/:id', editTask);
 
 module.exports = router;
