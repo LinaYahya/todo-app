@@ -26,6 +26,15 @@ function TaskPage() {
     setCategory(cat);
   }
 
+  const deleteTask = (id) => {
+  fetch(`/api/v1/task/${id}`, {
+      method: 'DELETE',
+    })
+    .then((res)=> res.json())
+    .then(console.log)
+    .catch(console.error)
+  }
+
 
   return (
     <>
@@ -42,7 +51,7 @@ function TaskPage() {
           <p>{task.description}</p>
           <span>{task.category}</span>
           <span>{task.time}</span>
-          <button>Delete</button>
+          <button onClick={()=> deleteTask(task._id)}>Delete</button>
           <button type="button" onClick={() => editTask(task.title, task.description, task.time, task.category)}>Edit</button>
         </div>
 
