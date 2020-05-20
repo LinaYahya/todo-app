@@ -21,6 +21,22 @@
   color: #61dafb;
 }
 
+.logincontainer{
+  width: 40%;
+  height: 150px;
+  border:1px solid #282c34;
+  margin: 20% auto;
+  justify-content: center;
+}
+.logincontainer:hover{
+  transform: scale(1.1);
+}
+.login-btn{
+  cursor: pointer;
+}
+.login-btn span{
+  color: black;
+}
 .taskform{
   width: 35%;
   min-width: 270px;
