@@ -2,7 +2,8 @@ const Task = require('../database/modals/Tasks');
 const taskSchema = require('./validation/taskSchema');
 
 const getTasks = async (req, res, next) => {
-  const tasks = await Task.find({ userID: 'ab123' });
+  const { id } = req.user;
+  const tasks = await Task.find({ userID: id });
   if (tasks.length > 0) {
     res.json(tasks);
   } else {
@@ -22,6 +23,8 @@ const deleteTask = async (req, res, next) => {
 
 const editTask = async (req, res, next) => {
   const { id } = req.params;
+  const userID = req.user.id;
+
   const { title, description, category, time } = req.body;
   try {
     const { error, data } = await taskSchema.validate(
@@ -32,7 +35,7 @@ const editTask = async (req, res, next) => {
       throw error.details;
     }
     await Task.findByIdAndUpdate(id, {
-      userID: 'ab123',
+      userID,
       title,
       description,
       category,
