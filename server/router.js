@@ -13,6 +13,10 @@ router.post('/login/google', loginByGoogle);
 // //login routes only
 router.use(verifyUser);
 
+router.get('/auth', (req, res) => {
+  res.json(req.user);
+});
+
 router.post('/task', addTask);
 router.get('/task', getTasks);
 router.delete('/task/:id', deleteTask);
