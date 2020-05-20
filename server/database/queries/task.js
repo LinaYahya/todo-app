@@ -12,4 +12,4 @@ taskQueries.findTasksByUserID = (userID) => Task.find({ userID });
 taskQueries.editTask = (id, { title, description, category, time }) =>
   Task.findByIdAndUpdate(id, { title, description, category, time });
 
-module.exports = { taskQueries };
+module.exports = taskQueries;
