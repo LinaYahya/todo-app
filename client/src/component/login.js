@@ -2,14 +2,14 @@ import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import '../App.css';
 
-const successResponse = ({ tokenId }) => {
+const successResponse = ({ tokenId, googleId }) => {
  console.log(tokenId, 'hi token')
-  fetch.post('api/v1/login/google', {
+  fetch('api/v1/login/google', {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(tokenId)
+    body: JSON.stringify({tokenId, googleId})
   })
     .then((res) => res.json())
     .then(console.log)
