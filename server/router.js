@@ -1,5 +1,13 @@
 const router = require('express').Router();
-const { addTask, getTasks, deleteTask, editTask } = require('./controllers');
+const {
+  addTask,
+  getTasks,
+  deleteTask,
+  editTask,
+  loginByGoogle,
+} = require('./controllers');
+
+router.post('/login/google', loginByGoogle);
 
 router.post('/task', addTask);
 router.get('/task', getTasks);
