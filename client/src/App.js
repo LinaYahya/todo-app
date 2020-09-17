@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import './App.css';
 import Googlelogin from './component/login';
 import ToDoPAge from './pages/taskPage'
@@ -7,8 +7,9 @@ import ToDoPAge from './pages/taskPage'
 function App() {
   const [userID, setID] = useState(null);
   const [userName, setName] = useState('');
+  const [data, setData] = useState(false);
 
-  useEffect(() => {
+  const checkAuth = () => {
     fetch('/api/v1/auth')
       .then((res) => {
         if (res.ok) return res.json();
@@ -17,24 +18,31 @@ function App() {
       .then(({ id, name }) => {
         setID(id);
         setName(name);
+        setData(true);
       })
       .catch(() => {
         setID(null);
         setName('');
       });
-  })
+  }
+
+  useEffect(() => {
+    checkAuth();
+  }, [])
+
 
   return (
+
     <div className="App">
       <Router>
-        <Route path="/login">
-          <Googlelogin />
-        </Route>
-        {userID != null ? (<Route exact path="/">
-          <ToDoPAge />
-        </Route>) : (<Redirect to="/login" />
-          )}
-
+        <Switch>
+          {(data) ? <Route path="/"><ToDoPAge /></Route>
+            :
+            <Route path="/login">
+              <Googlelogin />
+            </Route>
+          }
+        </Switch>
       </Router>
     </div>
   );
