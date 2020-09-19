@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import './App.css';
 import Googlelogin from './component/login';
-import ToDoPAge from './pages/taskPage'
+import ToDoPAge from './pages/taskPage';
+import Nav from './component/Nav'
 
 function App() {
   const [userID, setID] = useState(null);
@@ -35,6 +36,8 @@ function App() {
 
     <div className="App">
       <Router>
+      <Route path="*" render={({ history }) => <Nav history={history} userName={userName} />} />
+
         <Switch>
           {(data) ? <Route path="/"><ToDoPAge userName={userName} /></Route>
             :
