@@ -36,7 +36,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          {(data) ? <Route path="/"><ToDoPAge /></Route>
+          {(data) ? <Route path="/"><ToDoPAge userName={userName} /></Route>
             :
             <Route path="/login">
               <Googlelogin />
