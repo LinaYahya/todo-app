@@ -1,6 +1,6 @@
 const addTask = require('./addTask');
 const { getTasks, deleteTask, editTask } = require('./getTasks');
-const loginByGoogle = require('./googleLogin');
+const { loginByGoogle, logout } = require('./googleLogin');
 const verifyUser = require('./verifyProtected');
 
 module.exports = {
@@ -10,4 +10,5 @@ module.exports = {
   editTask,
   loginByGoogle,
   verifyUser,
+  logout,
 };
