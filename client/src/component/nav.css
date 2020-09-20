@@ -1,0 +1,19 @@
+.nav-container {
+  margin: 2% 2%;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-left {
+  justify-content: flex-start;
+  flex-grow: 1;
+  text-align: start;
+}
+.nav-right {
+  justify-content: flex-end;
+}
+.nav-right button{
+  border: none;
+  background: none;
+  cursor: pointer;
+}
