@@ -41,40 +41,23 @@ function TaskPage({ userName }) {
   return (
     <>
       <Navbar userName={userName} />
-      <button
-        type="button"
-        onClick={() => {
-          setShow(true);
-          setTitle("");
-          setDescription("");
-          setTime(Date.now());
-        }}
-      >
-        Add Task
-      </button>
-      <div className="mytask">
-        {tasks.length > 0
-          ? tasks.map((task) => (
-            <div key={task._id} className="task">
-              <h3
-                onClick={() =>
-                  editTask(
-                    task._id,
-                    task.title,
-                    task.description,
-                    task.time,
-                    task.category
-                  )
-                }
-              >
-                {task.title}
-              </h3>
-              <div className="task_controller">
-                <button type="button" onClick={() => deleteTask(task._id)}>
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-                <button
-                  type="button"
+      <div className="taskContainer">
+        <button
+          type="button"
+          onClick={() => {
+            setShow(true);
+            setTitle("");
+            setDescription("");
+            setTime(Date.now());
+          }}
+        >
+          Add Task
+        </button>
+        <div className="mytask">
+          {tasks.length > 0
+            ? tasks.map((task) => (
+              <div key={task._id} className="task">
+                <h3
                   onClick={() =>
                     editTask(
                       task._id,
@@ -85,15 +68,34 @@ function TaskPage({ userName }) {
                     )
                   }
                 >
-                  <i class="fas fa-edit"></i>
-                </button>
+                  {task.title}
+                </h3>
+                <div className="task_controller">
+                  <button type="button" onClick={() => deleteTask(task._id)}>
+                    <i className="fas fa-trash-alt"></i>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      editTask(
+                        task._id,
+                        task.title,
+                        task.description,
+                        task.time,
+                        task.category
+                      )
+                    }
+                  >
+                    <i className="fas fa-edit"></i>
+                  </button>
+                </div>
+                <p>{task.description}</p>
+                <span>{task.category}</span>
+                <span>{task.time}</span>
               </div>
-              <p>{task.description}</p>
-              <span>{task.category}</span>
-              <span>{task.time}</span>
-            </div>
-          ))
-          : null}
+            ))
+            : null}
+        </div>
       </div>
       {showForm && (
         <TaskForm
@@ -110,6 +112,8 @@ function TaskPage({ userName }) {
           time={new Date(time)}
           setTime={setTime}
           setCategory={setCategory}
+          setTasks={setTasks}
+          tasks={tasks}
         />
       )}
     </>
