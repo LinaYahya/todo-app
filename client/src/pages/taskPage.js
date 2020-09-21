@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TaskForm from "../component/TaskForm";
+import Navbar from "../component/Nav";
+import "./task.css";
 
 function TaskPage({ userName }) {
   const [showForm, setShow] = useState(false);
@@ -27,18 +29,18 @@ function TaskPage({ userName }) {
     setCategory(cat);
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
     fetch(`/api/v1/task/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then(console.log)
+      .then(() => setTasks(tasks.filter((task) => task._id !== id)))
       .catch(console.error);
   };
 
   return (
     <>
-      {console.log(userName)}
+      <Navbar userName={userName} />
       <button
         type="button"
         onClick={() => {
@@ -50,16 +52,11 @@ function TaskPage({ userName }) {
       >
         Add Task
       </button>
-      {tasks?.length
-        ? tasks.map((task) => (
-            <div key={task._id}>
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
-              <span>{task.category}</span>
-              <span>{task.time}</span>
-              <button onClick={() => deleteTask(task._id)}>Delete</button>
-              <button
-                type="button"
+      <div className="mytask">
+        {tasks.length > 0
+          ? tasks.map((task) => (
+            <div key={task._id} className="task">
+              <h3
                 onClick={() =>
                   editTask(
                     task._id,
@@ -70,11 +67,34 @@ function TaskPage({ userName }) {
                   )
                 }
               >
-                Edit
-              </button>
+                {task.title}
+              </h3>
+              <div className="task_controller">
+                <button type="button" onClick={() => deleteTask(task._id)}>
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    editTask(
+                      task._id,
+                      task.title,
+                      task.description,
+                      task.time,
+                      task.category
+                    )
+                  }
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+              <p>{task.description}</p>
+              <span>{task.category}</span>
+              <span>{task.time}</span>
             </div>
           ))
-        : null}
+          : null}
+      </div>
       {showForm && (
         <TaskForm
           edit={edit}

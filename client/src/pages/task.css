@@ -1,0 +1,26 @@
+.mytask {
+  background-color: honeydew;
+  padding: 2%;
+  width: 60%;
+  margin: 5% auto;
+}
+.task button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.task h3 {
+  display: inline;
+  cursor: pointer;
+  color: rgb(44, 105, 97);;
+}
+.task_controller {
+  margin-left: 70%;
+  display: inline;
+}
+.task button:hover {
+  color: rgb(44, 105, 97);;
+}
+.task span {
+  padding-right: 10px;
+}
