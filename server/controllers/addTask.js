@@ -16,14 +16,14 @@ module.exports = async (req, res, next) => {
     }
     const sameTimeTask = await Task.find({ userID: id, time });
     if (sameTimeTask.length === 0) {
-      await Task.create({
+      const newTask = await Task.create({
         userID: id,
         title,
         description,
         category,
         time,
       });
-      res.json('Task created');
+      res.json({ msg: 'Task created', newTask });
     } else {
       res.json('You already have task at this time');
     }
