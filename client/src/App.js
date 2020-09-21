@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
-import './App.css';
-import Googlelogin from './component/login';
-import ToDoPAge from './pages/taskPage';
-import Nav from './component/Nav'
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
+import "./App.css";
+import Googlelogin from "./component/login";
+import ToDoPAge from "./pages/taskPage";
 
 function App() {
   const [userID, setID] = useState(null);
-  const [userName, setName] = useState('');
+  const [userName, setName] = useState("");
   const [data, setData] = useState(false);
 
   const checkAuth = () => {
-    fetch('/api/v1/auth')
+    fetch("/api/v1/auth")
       .then((res) => {
         if (res.ok) return res.json();
         throw new Error();
@@ -23,28 +27,37 @@ function App() {
       })
       .catch(() => {
         setID(null);
-        setName('');
+        setName("");
       });
-  }
+  };
 
   useEffect(() => {
     checkAuth();
-  }, [])
-
+  }, []);
 
   return (
-
     <div className="App">
       <Router>
-      <Route path="*" render={({ history }) => <Nav history={history} userName={userName} />} />
-
         <Switch>
-          {(data) ? <Route path="/"><ToDoPAge userName={userName} /></Route>
-            :
-            <Route path="/login">
-              <Googlelogin />
-            </Route>
-          }
+          {console.log(data)}
+          <Route
+            exact
+            path="/"
+            render={() =>
+              data ? (
+                <ToDoPAge userName={userName} setData={setData} />
+              ) : (
+                  <Redirect to="/login" />
+                )
+            }
+          />
+          <Route
+            exact
+            path="/login"
+            render={(props) =>
+              !data ? <Googlelogin setData={setData} /> : <Redirect to="/" />
+            }
+          />
         </Switch>
       </Router>
     </div>

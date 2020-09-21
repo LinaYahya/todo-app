@@ -1,8 +1,13 @@
-.mytask {
-  background-color: honeydew;
-  padding: 2%;
+.taskContainer{
   width: 60%;
   margin: 5% auto;
+
+}
+.mytask {
+  background-color: honeydew;
+  margin-top: 2%;
+  padding: 2%;
+  width: 80%;
 }
 .task button {
   background: none;

@@ -3,7 +3,7 @@ import TaskForm from "../component/TaskForm";
 import Navbar from "../component/Nav";
 import "./task.css";
 
-function TaskPage({ userName }) {
+function TaskPage({ userName, setData }) {
   const [showForm, setShow] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [id, setID] = useState("");
@@ -40,7 +40,7 @@ function TaskPage({ userName }) {
 
   return (
     <>
-      <Navbar userName={userName} />
+      <Navbar userName={userName} setData={setData} />
       <div className="taskContainer">
         <button
           type="button"

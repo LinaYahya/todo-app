@@ -1,14 +1,12 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
 import "../App.css";
-import { useHistory } from "react-router-dom";
 
 const failureResponse = (response) => {
   console.log("error", response);
 };
 
-function Googlelogin() {
-  const history = useHistory();
+function Googlelogin({ setData }) {
   const successResponse = ({ tokenId, googleId }) => {
     fetch("/api/v1/login/google", {
       method: "POST",
@@ -17,7 +15,7 @@ function Googlelogin() {
       },
       body: JSON.stringify({ tokenId, googleId }),
     })
-      .then(() => history.push("/"))
+      .then(() => setData(true))
       .catch(console.log);
   };
   return (
