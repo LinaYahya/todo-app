@@ -10,7 +10,6 @@ import Googlelogin from "./component/login";
 import ToDoPAge from "./pages/taskPage";
 
 function App() {
-  const [userID, setID] = useState(null);
   const [userName, setName] = useState("");
   const [data, setData] = useState(false);
 
@@ -20,13 +19,11 @@ function App() {
         if (res.ok) return res.json();
         throw new Error();
       })
-      .then(({ id, name }) => {
-        setID(id);
+      .then(({ name }) => {
         setName(name);
         setData(true);
       })
       .catch(() => {
-        setID(null);
         setName("");
       });
   };
@@ -39,7 +36,6 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          {console.log(data)}
           <Route
             exact
             path="/"
@@ -47,8 +43,8 @@ function App() {
               data ? (
                 <ToDoPAge userName={userName} setData={setData} />
               ) : (
-                  <Redirect to="/login" />
-                )
+                <Redirect to="/login" />
+              )
             }
           />
           <Route
