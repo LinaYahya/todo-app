@@ -1,5 +1,6 @@
 import React from "react";
 import DateTimePicker from "react-datetime-picker";
+import './taskForm.css';
 
 function TaskFrom({
   edit,
@@ -65,6 +66,7 @@ function TaskFrom({
   return (
     <>
       <form className="taskform">
+        <h2>{edit ? 'Edit' : 'ADD'} Your Task</h2>
         <label>
           Title
           <input value={title} onChange={(e) => setTitle(e.target.value)} />
