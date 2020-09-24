@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, models } = require('mongoose');
 
 const taskSchema = new Schema({
   userID: {
@@ -22,4 +22,4 @@ const taskSchema = new Schema({
   },
 });
 
-module.exports = model('Task', taskSchema);
+module.exports = models.Task || model('Task', taskSchema);

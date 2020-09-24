@@ -6,7 +6,7 @@
   "scripts": {
     "client": "cd client && npm start",
     "start": "NODE_ENV=production node server/index.js",
-    "dev": "nodemon server/index.js",
+    "dev": "NODE_ENV=development nodemon server/index.js",
     "kill": "fuser -k 5000/tcp",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "build:database": "node server/database/index.js"
