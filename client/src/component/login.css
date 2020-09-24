@@ -1,0 +1,39 @@
+.logincontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+.loginLeft {
+  width: 40%;
+}
+.loginLeft img {
+  width: 80%;
+  margin-top: 20%;
+}
+
+.loginRight {
+  width: 30vw;
+  height: 20rem;
+  margin: 10% 10%;
+  text-align: center;
+  background: linear-gradient(
+    0deg,
+    rgba(44, 105, 97, 1) 0%,
+    rgba(136, 79, 125, 1) 100%
+  );
+  border-radius: 15px;
+}
+
+.loginRight button {
+  margin-top: 5%;
+}
+
+.loginRight h2 {
+  color: white;
+  margin-top: 15%;
+}
+
+.loginRight:hover {
+  transform: scale(1.1);
+}

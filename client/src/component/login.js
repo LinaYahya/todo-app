@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import "../App.css";
+import './login.css';
+import TaskImg from '../assets/work.png';
 
 const failureResponse = (response) => {
   console.log("error", response);
@@ -20,7 +21,12 @@ function Googlelogin({ setData }) {
   };
   return (
     <div className="logincontainer">
-      <GoogleLogin
+      <div className="loginLeft">
+        <img alt="task" src={TaskImg} />
+        </div>
+        <div className="loginRight">
+          <h2>Login by google account</h2>
+        <GoogleLogin
         clientId="350966115127-cs3q5j21nlacr1hg3njv3v8co74q23ab.apps.googleusercontent.com"
         className="login-btn"
         onSuccess={successResponse}
@@ -28,6 +34,8 @@ function Googlelogin({ setData }) {
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
       />
+        </div>
+     
     </div>
   );
 }
