@@ -43,6 +43,7 @@ function TaskPage({ userName, setData }) {
       <Navbar userName={userName} setData={setData} />
       <div className="taskContainer">
         <button
+          className="newBtn"
           type="button"
           onClick={() => {
             setShow(true);
@@ -56,26 +57,8 @@ function TaskPage({ userName, setData }) {
         <div className="mytask">
           {tasks.length > 0
             ? tasks.map((task) => (
-              <div key={task._id} className="task">
-                <h3
-                  onClick={() =>
-                    editTask(
-                      task._id,
-                      task.title,
-                      task.description,
-                      task.time,
-                      task.category
-                    )
-                  }
-                >
-                  {task.title}
-                </h3>
-                <div className="task_controller">
-                  <button type="button" onClick={() => deleteTask(task._id)}>
-                    <i className="fas fa-trash-alt"></i>
-                  </button>
-                  <button
-                    type="button"
+                <div key={task._id} className="task">
+                  <h3
                     onClick={() =>
                       editTask(
                         task._id,
@@ -86,14 +69,32 @@ function TaskPage({ userName, setData }) {
                       )
                     }
                   >
-                    <i className="fas fa-edit"></i>
-                  </button>
+                    {task.title}
+                  </h3>
+                  <div className="task_controller">
+                    <button type="button" onClick={() => deleteTask(task._id)}>
+                      <i className="fas fa-trash-alt"></i>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        editTask(
+                          task._id,
+                          task.title,
+                          task.description,
+                          task.time,
+                          task.category
+                        )
+                      }
+                    >
+                      <i className="fas fa-edit"></i>
+                    </button>
+                  </div>
+                  <p>{task.description}</p>
+                  <span>{task.category}</span>
+                  <span>{task.time}</span>
                 </div>
-                <p>{task.description}</p>
-                <span>{task.category}</span>
-                <span>{task.time}</span>
-              </div>
-            ))
+              ))
             : null}
         </div>
       </div>

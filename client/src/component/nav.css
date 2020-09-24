@@ -1,9 +1,10 @@
 .nav-container {
-  margin: 2% 2%;
   display: flex;
   flex-direction: row;
+  box-shadow: 1px 3px 10px rgb(185, 212, 209);
+  padding: 1.5rem 5rem;
+  background: rgba(243, 242, 242, 0.377);
 }
-
 .nav-left {
   justify-content: flex-start;
   flex-grow: 1;
@@ -12,7 +13,7 @@
 .nav-right {
   justify-content: flex-end;
 }
-.nav-right button{
+.nav-right button {
   border: none;
   background: none;
   cursor: pointer;

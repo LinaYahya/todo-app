@@ -1,13 +1,35 @@
-.taskContainer{
-  width: 60%;
+.taskContainer {
+  width: 50%;
   margin: 5% auto;
-
 }
 .mytask {
-  background-color: honeydew;
   margin-top: 2%;
-  padding: 2%;
-  width: 80%;
+}
+.newBtn{
+  width: 10rem;
+  margin-left: 5px;
+  cursor: pointer;
+  outline: none;
+  height: 2rem;
+  background: rgb(44, 105, 97);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: medium;
+}
+.newBtn:hover{
+  color:rgb(44, 105, 97);
+  background: white;
+  border: 1px solid rgb(44, 105, 97);
+}
+.task {
+  box-shadow: 1px 3px 10px rgb(185, 212, 209);
+  padding: 25px;
+  margin: 5% 0;
+}
+.task:hover {
+  transform: scale(1.1);
 }
 .task button {
   background: none;
@@ -17,14 +39,14 @@
 .task h3 {
   display: inline;
   cursor: pointer;
-  color: rgb(44, 105, 97);;
+  color: rgb(44, 105, 97);
 }
 .task_controller {
-  margin-left: 70%;
+  margin-left: 80%;
   display: inline;
 }
 .task button:hover {
-  color: rgb(44, 105, 97);;
+  color: rgb(44, 105, 97);
 }
 .task span {
   padding-right: 10px;
