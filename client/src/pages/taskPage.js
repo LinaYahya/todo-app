@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import TaskForm from "../component/TaskForm";
-import Navbar from "../component/Nav";
+import TaskForm from "../features/tasks/TaskForm";
+import Navbar from "../features/Nav";
 import "./task.css";
 
 function TaskPage({ userName, setData }) {

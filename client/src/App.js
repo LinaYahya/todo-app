@@ -6,7 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
-import Googlelogin from "./component/login";
+import Googlelogin from "./features/login";
 import ToDoPAge from "./pages/taskPage";
 
 function App() {
