@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import { fetchPosts } from "../../../../../../redux/redux-essentials-example-app/src/features/posts/postsSlice";
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const data = await fetch("/api/v1/task");
@@ -11,6 +10,20 @@ const initialState = {
   error: null,
   tasks: [],
 };
+export const addTask = createAsyncThunk(
+  "tasks/addTask",
+  async ({ title, description, time, category }) => {
+    const res = await fetch("/api/v1/task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, time, category }),
+    });
+    const { newTask } = await res.json();
+    return newTask;
+  }
+);
 
 const taskSlice = createSlice({
   name: "tasks",
@@ -26,6 +39,9 @@ const taskSlice = createSlice({
     [fetchTasks.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
+    },
+    [addTask.fulfilled]: (state, action) => {
+      state.tasks = state.tasks.concat(action.payload);
     },
   },
 });
