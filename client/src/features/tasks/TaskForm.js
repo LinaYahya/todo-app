@@ -1,6 +1,9 @@
 import React from "react";
 import DateTimePicker from "react-datetime-picker";
+import {useDispatch} from 'react-redux';
+import {addTask} from './taskSlice'
 import './taskForm.css';
+
 
 function TaskFrom({
   edit,
@@ -16,43 +19,9 @@ function TaskFrom({
   setTime,
   category,
   setCategory,
-  setTasks,
-  tasks,
 }) {
-  const addTask = () => {
-    fetch("/api/v1/task", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, description, time, category }),
-    })
-      .then((res) => res.json())
-      .then(({ newTask }) => setTasks([...tasks, newTask]))
-      .catch((err) => console.log(err));
-  };
 
-  const EditTask = () => {
-    fetch(`/api/v1/task/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, description, time, category }),
-    })
-      .then((res) => res.json())
-      .then(({ taskedited }) =>
-        tasks.map((task) => {
-          if (task._id !== taskedited._id) {
-            return task;
-          } else {
-            return taskedited;
-          }
-        })
-      )
-      .then((result)=> setTasks(result))
-      .catch((err) => console.log(err));
-  };
+  const dispatch = useDispatch();
 
   const clearItems = () => {
     setEdit(false);
@@ -113,14 +82,9 @@ function TaskFrom({
         <button
           type="submit"
           className="taskbtn"
-          onClick={(e) => {
+          onClick={(e)=>{
             e.preventDefault();
-            if (edit) {
-              EditTask();
-            } else {
-              addTask();
-            }
-            clearItems();
+            dispatch(addTask({ title, description, time, category }))
           }}
         >
           {edit ? "Edit" : "Add Task"}
