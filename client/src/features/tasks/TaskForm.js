@@ -1,9 +1,8 @@
 import React from "react";
 import DateTimePicker from "react-datetime-picker";
-import {useDispatch} from 'react-redux';
-import {addTask} from './taskSlice'
-import './taskForm.css';
-
+import { useDispatch } from "react-redux";
+import { addTask, editTask } from "./taskSlice";
+import "./taskForm.css";
 
 function TaskFrom({
   edit,
@@ -20,7 +19,6 @@ function TaskFrom({
   category,
   setCategory,
 }) {
-
   const dispatch = useDispatch();
 
   const clearItems = () => {
@@ -35,7 +33,7 @@ function TaskFrom({
   return (
     <>
       <form className="taskform">
-        <h2>{edit ? 'Edit' : 'ADD'} Your Task</h2>
+        <h2>{edit ? "Edit" : "ADD"} Your Task</h2>
         <label>
           Title
           <input value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -82,9 +80,14 @@ function TaskFrom({
         <button
           type="submit"
           className="taskbtn"
-          onClick={(e)=>{
+          onClick={(e) => {
             e.preventDefault();
-            dispatch(addTask({ title, description, time, category }))
+            if (edit) {
+              dispatch(editTask({ id, title, description, time, category }));
+            } else {
+              dispatch(addTask({ title, description, time, category }));
+            }
+            clearItems();
           }}
         >
           {edit ? "Edit" : "Add Task"}

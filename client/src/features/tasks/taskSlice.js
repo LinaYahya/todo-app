@@ -24,6 +24,20 @@ export const addTask = createAsyncThunk(
     return newTask;
   }
 );
+export const editTask = createAsyncThunk(
+  "tasks/editTask",
+  async ({ id, title, description, time, category }) => {
+    const res = await fetch(`/api/v1/task/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, time, category }),
+    });
+    const { taskedited } = await res.json();
+    return taskedited;
+  }
+);
 
 const taskSlice = createSlice({
   name: "tasks",
@@ -42,6 +56,15 @@ const taskSlice = createSlice({
     },
     [addTask.fulfilled]: (state, action) => {
       state.tasks = state.tasks.concat(action.payload);
+    },
+    [editTask.fulfilled]: (state, action) => {
+      state.tasks = state.tasks.map((task) => {
+        if (task._id !== action.payload._id) {
+          return task;
+        } else {
+          return action.payload;
+        }
+      });
     },
   },
 });
