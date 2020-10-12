@@ -39,6 +39,14 @@ export const editTask = createAsyncThunk(
   }
 );
 
+export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
+  const res = await fetch(`/api/v1/task/${id}`, {
+    method: "DELETE",
+  });
+  const result = await res.json();
+  return id;
+});
+
 const taskSlice = createSlice({
   name: "tasks",
   initialState,
@@ -65,6 +73,9 @@ const taskSlice = createSlice({
           return action.payload;
         }
       });
+    },
+    [deleteTask.fulfilled]: (state, action) => {
+      state.tasks = state.tasks.filter((task) => task._id !== action.payload);
     },
   },
 });

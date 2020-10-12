@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import TaskForm from "../features/tasks/TaskForm";
-import Navbar from "../features/Nav";
+import { useSelector, useDispatch } from "react-redux";
+import TaskForm from "./TaskForm";
+import { fetchTasks, deleteTask } from "./taskSlice";
+import Navbar from "../Nav";
 import "./task.css";
 
 function TaskPage({ userName, setData }) {
   const [showForm, setShow] = useState(false);
-  const [tasks, setTasks] = useState([]);
   const [id, setID] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -13,11 +14,14 @@ function TaskPage({ userName, setData }) {
   const [category, setCategory] = useState("personal");
   const [edit, setEdit] = useState(false);
 
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.tasks);
+  const tasksStatus = useSelector((state) => state.tasks.status);
   useEffect(() => {
-    fetch("/api/v1/task")
-      .then((res) => res.json())
-      .then((tasks) => setTasks(tasks));
-  }, []);
+    if (tasksStatus === "idle") {
+      dispatch(fetchTasks());
+    }
+  }, [tasksStatus, dispatch]);
 
   const editTask = (id, t, desc, time, cat) => {
     setShow(true);
@@ -29,18 +33,12 @@ function TaskPage({ userName, setData }) {
     setCategory(cat);
   };
 
-  const deleteTask = async (id) => {
-    fetch(`/api/v1/task/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then(() => setTasks(tasks.filter((task) => task._id !== id)))
-      .catch(console.error);
-  };
+
 
   return (
     <>
       <Navbar userName={userName} setData={setData} />
+      {console.log(tasksStatus, "status")}
       <div className="taskContainer">
         <button
           className="newBtn"
@@ -72,7 +70,7 @@ function TaskPage({ userName, setData }) {
                     {task.title}
                   </h3>
                   <div className="task_controller">
-                    <button type="button" onClick={() => deleteTask(task._id)}>
+                    <button type="button" onClick={() => dispatch(deleteTask(task._id)) }>
                       <i className="fas fa-trash-alt"></i>
                     </button>
                     <button
@@ -113,7 +111,6 @@ function TaskPage({ userName, setData }) {
           time={new Date(time)}
           setTime={setTime}
           setCategory={setCategory}
-          setTasks={setTasks}
           tasks={tasks}
         />
       )}
