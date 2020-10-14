@@ -4,30 +4,25 @@ import { useDispatch } from "react-redux";
 import { addTask, editTask } from "./taskSlice";
 import "./taskForm.css";
 
-function TaskFrom({
-  edit,
-  setEdit,
-  setShow,
-  id,
-  setID,
-  title,
-  setTitle,
-  description,
-  setDescription,
-  time,
-  setTime,
-  category,
-  setCategory,
-}) {
+function TaskFrom({ edit, setEdit, setShow, task, setTask }) {
+  const { id, title, description, time, category } = task;
+
   const dispatch = useDispatch();
 
   const clearItems = () => {
     setEdit(false);
     setShow(false);
-    setDescription("");
-    setTitle("");
-    setID("");
-    setTime(Date.now());
+    setTask({
+      id: "",
+      title: "",
+      description: "",
+      time: new Date(),
+      category: "personal",
+    });
+  };
+
+  const setValue = (key, value) => {
+    setTask({ ...task, [key]: value });
   };
 
   return (
@@ -36,7 +31,10 @@ function TaskFrom({
         <h2>{edit ? "Edit" : "ADD"} Your Task</h2>
         <label>
           Title
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input
+            value={title}
+            onChange={(e) => setValue("title", e.target.value)}
+          />
         </label>
         <br />
 
@@ -44,7 +42,7 @@ function TaskFrom({
           Description
           <input
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setValue("description", e.target.value)}
           />
         </label>
         <br />
@@ -53,7 +51,7 @@ function TaskFrom({
           Category:
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => setValue("category", e.target.value)}
           >
             <option value="personal">personal</option>
             <option value="work">work</option>
@@ -65,7 +63,7 @@ function TaskFrom({
           <DateTimePicker
             className="timepicker"
             value={time}
-            onChange={(date) => setTime(date)}
+            onChange={(date) => setValue("time", date)}
           />
         </label>
         <button

@@ -7,11 +7,13 @@ import "./task.css";
 
 function TaskPage({ userName, setData }) {
   const [showForm, setShow] = useState(false);
-  const [id, setID] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [time, setTime] = useState(new Date());
-  const [category, setCategory] = useState("personal");
+  const [task, setTask] = useState({
+    id: "",
+    title: "",
+    description: "",
+    time: new Date(),
+    category: "personal",
+  });
   const [edit, setEdit] = useState(false);
 
   const dispatch = useDispatch();
@@ -23,31 +25,28 @@ function TaskPage({ userName, setData }) {
     }
   }, [tasksStatus, dispatch]);
 
-  const editTask = (id, t, desc, time, cat) => {
+  const editTask = (id, title, description, time, category) => {
     setShow(true);
     setEdit(true);
-    setID(id);
-    setTitle(t);
-    setDescription(desc);
-    setTime(time);
-    setCategory(cat);
+    setTask({ id, title, description, time, category });
   };
-
-
 
   return (
     <>
       <Navbar userName={userName} setData={setData} />
-      {console.log(tasksStatus, "status")}
       <div className="taskContainer">
         <button
           className="newBtn"
           type="button"
           onClick={() => {
             setShow(true);
-            setTitle("");
-            setDescription("");
-            setTime(Date.now());
+            setTask({
+              id: "",
+              title: "",
+              description: "",
+              time: new Date(),
+              category: "personal",
+            });
           }}
         >
           Add Task
@@ -70,7 +69,10 @@ function TaskPage({ userName, setData }) {
                     {task.title}
                   </h3>
                   <div className="task_controller">
-                    <button type="button" onClick={() => dispatch(deleteTask(task._id)) }>
+                    <button
+                      type="button"
+                      onClick={() => dispatch(deleteTask(task._id))}
+                    >
                       <i className="fas fa-trash-alt"></i>
                     </button>
                     <button
@@ -100,18 +102,9 @@ function TaskPage({ userName, setData }) {
         <TaskForm
           edit={edit}
           setEdit={setEdit}
-          id={id}
-          setID={setID}
           setShow={setShow}
-          title={title}
-          setTitle={setTitle}
-          setDescription={setDescription}
-          description={description}
-          category={category}
-          time={new Date(time)}
-          setTime={setTime}
-          setCategory={setCategory}
-          tasks={tasks}
+          task={task}
+          setTask={setTask}
         />
       )}
     </>
